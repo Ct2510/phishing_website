@@ -1,0 +1,6 @@
+.divider {
+    border: none;
+    border-top: 1px solid #dadde1;
+    margin: 40px auto 0 auto;
+    max-width: 600px;
+}
