@@ -1,31 +1,55 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook - 登入或註冊</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Facebook - 登录或注册</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
     <style>
         body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
             background-color: #f0f2f5;
         }
-        .container {
+
+        .main {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
+            padding: 20px;
         }
+
+        .left {
+            flex: 1;
+            max-width: 500px;
+            margin-right: 60px;
+        }
+
+        .left h1 {
+            color: #1877f2;
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .left p {
+            font-size: 24px;
+            line-height: 32px;
+            color: #1c1e21;
+        }
+
+        .right {
+            width: 396px;
+        }
+
         .login-box {
             background: white;
-            padding: 20px 20px 30px 20px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            width: 360px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             text-align: center;
         }
+
         .login-box input {
             width: 100%;
             padding: 14px 16px;
@@ -35,13 +59,15 @@
             font-size: 17px;
             box-sizing: border-box;
         }
+
         .error-message {
             text-align: left;
             color: red;
             font-size: 13px;
             margin: 4px 0 0 4px;
         }
-        .login-box button {
+
+        .login-btn {
             width: 100%;
             padding: 14px;
             background-color: #1877f2;
@@ -51,8 +77,10 @@
             border-radius: 6px;
             cursor: pointer;
             margin-top: 16px;
+            font-weight: bold;
         }
-        .login-box a {
+
+        .forgot-link {
             display: block;
             color: #1877f2;
             margin-top: 12px;
@@ -60,77 +88,60 @@
             font-size: 14px;
             cursor: pointer;
         }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #dddfe2;
+        }
+
         .signup-btn {
             background-color: #42b72a;
-            margin-top: 20px;
-        }
-        h1 {
-            color: #1877f2;
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            z-index: 1000;
-            width: 300px;
-            text-align: center;
-        }
-        .popup button {
-            background-color: #1877f2;
-            color: white;
             border: none;
-            padding: 10px 20px;
-            margin-top: 10px;
             border-radius: 6px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
             cursor: pointer;
+            width: 200px;
+            margin: 0 auto;
         }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 500;
+
+        .public-page-link {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .public-page-link a {
+            color: #1c1e21;
+            font-weight: bold;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>facebook</h1>
-    <div class="login-box">
-        <input type="text" id="email" placeholder="電子郵件地址或電話號碼">
-        <div id="email-error" class="error-message"></div>
-        <input type="password" id="password" placeholder="密碼">
-        <div id="password-error" class="error-message"></div>
-        <button onclick="validateLogin()">登入</button>
-        <a onclick="showForgotPassword()">忘記密碼？</a>
-        <hr style="margin: 20px 0;">
-        <button class="signup-btn" onclick="showSignup()">建立新帳號</button>
+<div class="main">
+    <div class="left">
+        <h1>facebook</h1>
+        <p>联系你我，分享生活，尽在 Facebook。</p>
     </div>
-</div>
-
-<div class="overlay" id="overlay" onclick="closePopup()"></div>
-
-<div class="popup" id="signup-popup">
-    <h2>建立新帳號</h2>
-    <p>這是假的註冊頁面 (練習用)</p>
-    <button onclick="closePopup()">關閉</button>
-</div>
-
-<div class="popup" id="forgot-popup">
-    <h2>找回密碼</h2>
-    <p>這是假的找回密碼頁面 (練習用)</p>
-    <button onclick="closePopup()">關閉</button>
+    <div class="right">
+        <div class="login-box">
+            <input type="text" id="email" placeholder="电子邮件地址或手机号" />
+            <div id="email-error" class="error-message"></div>
+            <input type="password" id="password" placeholder="密码" />
+            <div id="password-error" class="error-message"></div>
+            <button class="login-btn" onclick="validateLogin()">登录</button>
+            <a class="forgot-link" onclick="showForgotPassword()">忘记密码？</a>
+            <hr />
+            <button class="signup-btn" onclick="showSignup()">创建新账户</button>
+        </div>
+        <div class="public-page-link">
+            <a href="#">为名人、品牌或公司创建公共主页。</a>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -182,7 +193,5 @@
         document.getElementById('forgot-popup').style.display = 'none';
     }
 </script>
-
-
 </body>
 </html>
